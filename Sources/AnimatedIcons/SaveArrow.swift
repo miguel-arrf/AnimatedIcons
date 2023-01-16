@@ -18,6 +18,11 @@ public struct SaveArrow: View {
 
     var springyAnimation = Animation.interpolatingSpring(mass: 0.10, stiffness: 7.15, damping: 0.43, initialVelocity: 3.25)
 
+    @Binding var animate : Bool
+
+    public init(animate : Binding<Bool> = .constant(false)){
+        self._animate = animate
+    }
 
     public var body: some View {
         ZStack{
@@ -48,6 +53,11 @@ public struct SaveArrow: View {
             }
 
         })
+        .onChange(of: animate){ newValue in
+            if newValue {
+                animation()
+            }
+        }
 
     }
 
