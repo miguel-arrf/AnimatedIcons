@@ -18,7 +18,7 @@ public struct BackArrow: View {
 
     @Binding var animate : Bool
 
-    init(animate : Binding<Bool> = .constant(false)){
+    public init(animate : Binding<Bool> = .constant(false)){
         self._animate = animate
     }
 
