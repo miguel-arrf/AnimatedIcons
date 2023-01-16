@@ -47,6 +47,7 @@ public struct SaveArrow: View {
                 .foregroundColor(.black)
 
         }
+        .offset(y: 2)
         .onHover(perform: { hover in
             if hover {
                 animation()
