@@ -20,13 +20,14 @@ public struct SaveArrow: View {
 
     @Binding var animate : Bool
 
+    @State var animating = false
+
     public init(animate : Binding<Bool> = .constant(false)){
         self._animate = animate
     }
 
     public var body: some View {
         ZStack{
-            Color.white
             DownArrowBoxShape()
                 .frame(width: 17, height: 15)
                 .foregroundColor(.black)
@@ -46,7 +47,6 @@ public struct SaveArrow: View {
                 .foregroundColor(.black)
 
         }
-        .frame(width: 100, height: 100)
         .onHover(perform: { hover in
             if hover {
                 animation()
@@ -62,30 +62,35 @@ public struct SaveArrow: View {
     }
 
     func animation(){
-        withAnimation(.spring()){
-            arrowOffset = 20
-            arrowScale = 0.5
-            arrowBlur = 1.0
-            arrowOpacity = 0.0
-            boxOffset = 1.0
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation{
-                boxOffset = 0.0
-            }
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            arrowOffset = -15
-            arrowScale = 1.0
-            arrowOpacity = 0.0
+        if !animating {
+            animating = true
             withAnimation(.spring()){
-                arrowOpacity = 1.0
-                arrowBlur = 0.0
-                arrowOffset = 0
+                arrowOffset = 20
+                arrowScale = 0.5
+                arrowBlur = 1.0
+                arrowOpacity = 0.0
+                boxOffset = 1.0
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation{
+                    boxOffset = 0.0
+                }
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                arrowOffset = -15
+                arrowScale = 1.0
+                arrowOpacity = 0.0
+                withAnimation(.spring()){
+                    arrowOpacity = 1.0
+                    arrowBlur = 0.0
+                    arrowOffset = 0
+                }
+                animating = false
             }
         }
+
     }
 }
 
