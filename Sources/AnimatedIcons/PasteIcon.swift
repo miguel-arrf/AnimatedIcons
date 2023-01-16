@@ -13,6 +13,8 @@ public struct PasteIcon: View {
 
     @Binding var animate : Bool
 
+    var springyAnimation = Animation.interpolatingSpring(mass: 0.10, stiffness: 7.15, damping: 0.43, initialVelocity: 3.25)
+
     public init(animate : Binding<Bool> = .constant(false)){
         self._animate = animate
     }
@@ -40,7 +42,7 @@ public struct PasteIcon: View {
             }
             .rotationEffect(Angle(degrees: hovering ? -4 : 0))
             .scaleEffect(hovering ? 0.5 : 0.7)
-            .offset(y: hovering ? 3 : 12)
+            .offset(y: hovering ? 5 : 12)
             .offset(x: hovering ? 0 : -6)
         }
         .scaleEffect(0.4)
@@ -56,15 +58,14 @@ public struct PasteIcon: View {
             }
         }
         .frame(width: 22, height: 22)
-
     }
 
     func animation(){
-        withAnimation(.spring()){
+        withAnimation(springyAnimation){
             hovering = true
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
             withAnimation(.spring()){
                 hovering = false
             }
