@@ -43,7 +43,7 @@ public struct PasteIcon: View {
             .offset(y: hovering ? 3 : 12)
             .offset(x: hovering ? 0 : -6)
         }
-        .scaleEffect(0.5)
+        .scaleEffect(0.4)
         .onHover(perform: { hover in
             if hover {
                 animation()
@@ -55,7 +55,7 @@ public struct PasteIcon: View {
                 animation()
             }
         }
-        .frame(width: 24, height: 24)
+        .frame(width: 22, height: 22)
 
     }
 
