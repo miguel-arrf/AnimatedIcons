@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SwatchPalette: View {
+public struct SwatchPalette: View {
 
     var width = 6.6
     var height = 6.6
@@ -30,7 +30,7 @@ struct SwatchPalette: View {
 
     var springyAnimation = Animation.interpolatingSpring(mass: 0.10, stiffness: 7.15, damping: 0.43, initialVelocity: 3.25)
 
-    init(width: Double = 6.6, height: Double = 6.6, offset: Double = -5.0, lineWidth: Double = 1.8, cornerRadius: Double = 1.4, strokeColor: Color = .black, backgroundColor: Color = .white, secondLevelRotation: Double = 54.0, firstLevelRotation: Double = 24.0, firstLevelOpacity: Double = 1.0, secondLevelOpacity: Double = 1.0, hovering: Bool = false, springyAnimation: SwiftUI.Animation = Animation.interpolatingSpring(mass: 0.10, stiffness: 7.15, damping: 0.43, initialVelocity: 3.25), animate : Binding<Bool> = .constant(false)) {
+    public init(width: Double = 6.6, height: Double = 6.6, offset: Double = -5.0, lineWidth: Double = 1.8, cornerRadius: Double = 1.4, strokeColor: Color = .black, backgroundColor: Color = .white, secondLevelRotation: Double = 54.0, firstLevelRotation: Double = 24.0, firstLevelOpacity: Double = 1.0, secondLevelOpacity: Double = 1.0, hovering: Bool = false, springyAnimation: SwiftUI.Animation = Animation.interpolatingSpring(mass: 0.10, stiffness: 7.15, damping: 0.43, initialVelocity: 3.25), animate : Binding<Bool> = .constant(false)) {
         self.width = width
         self.height = height
         self.offset = offset
@@ -47,7 +47,7 @@ struct SwatchPalette: View {
         self.springyAnimation = springyAnimation
     }
 
-    var body: some View {
+    public var body: some View {
         VStack {
             ZStack {
                 VStack(spacing: -1.5) {

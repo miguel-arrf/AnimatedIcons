@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Eyedropper: View {
+public struct Eyedropper: View {
     @State private var insetAmount = 0.0
     @State private var insetAmount2 = 0.0
     @State var scaled : Bool = false
@@ -21,12 +21,12 @@ struct Eyedropper: View {
 
     @Binding var animate : Bool
 
-    init(animate : Binding<Bool> = .constant(false)){
+    public init(animate : Binding<Bool> = .constant(false)){
         self._animate = animate
     }
 
 
-    var body: some View {
+    public var body: some View {
         VStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
