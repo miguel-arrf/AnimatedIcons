@@ -27,7 +27,7 @@ public struct PasteIcon: View {
                 RoundedRectangle(cornerRadius: 8)
                     .foregroundColor(.white)
                     .frame(width: 46, height: 42)
-                    .offset(x: hovering ? -0.5 : 0.0)
+                    .offset(x: hovering ? -0.5 : -0.5)
 
                 ImageShape()
                     .background(
@@ -40,8 +40,8 @@ public struct PasteIcon: View {
             }
             .rotationEffect(Angle(degrees: hovering ? -4 : 0))
             .scaleEffect(hovering ? 0.5 : 0.7)
-            .offset(y: hovering ? 3 : 7)
-            .offset(x: hovering ? 0 : -5)
+            .offset(y: hovering ? 3 : 12)
+            .offset(x: hovering ? 0 : -6)
         }
         .scaleEffect(0.5)
         .onHover(perform: { hover in
@@ -55,6 +55,8 @@ public struct PasteIcon: View {
                 animation()
             }
         }
+        .frame(width: 24, height: 24)
+
     }
 
     func animation(){
@@ -72,7 +74,12 @@ public struct PasteIcon: View {
 
 struct PasteIcon_Previews: PreviewProvider {
     static var previews: some View {
-        PasteIcon()
+        HStack {
+            Text(Image(systemName: "doc.on.doc"))
+                .fontWeight(.black)
+                .foregroundColor(.black)
+            PasteIcon()
+        }
     }
 }
 
