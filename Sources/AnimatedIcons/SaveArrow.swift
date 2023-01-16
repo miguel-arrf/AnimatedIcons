@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-public struct SafeArrow: View {
+public struct SaveArrow: View {
 
     @State var arrowOffset  = 0.0
     @State var arrowScale = 1.0
     @State var arrowBlur = 0.0
     @State var arrowOpacity = 1.0
+
+    @State var boxOffset = 0.0
+
+    var springyAnimation = Animation.interpolatingSpring(mass: 0.10, stiffness: 7.15, damping: 0.43, initialVelocity: 3.25)
+
 
     public var body: some View {
         ZStack{
@@ -20,6 +25,7 @@ public struct SafeArrow: View {
             DownArrowBoxShape()
                 .frame(width: 17, height: 15)
                 .foregroundColor(.black)
+                .offset(y: boxOffset)
 
             DownArrowShape()
                 .frame(width: 8.6, height: 14.14)
@@ -46,20 +52,25 @@ public struct SafeArrow: View {
     }
 
     func animation(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        withAnimation(.spring()){
+            arrowOffset = 20
+            arrowScale = 0.5
+            arrowBlur = 1.0
+            arrowOpacity = 0.0
+            boxOffset = 1.0
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             withAnimation{
-                arrowOffset = 20
-                arrowScale = 0.5
-                arrowBlur = 1.0
-                arrowOpacity = 0.0
+                boxOffset = 0.0
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             arrowOffset = -15
             arrowScale = 1.0
             arrowOpacity = 0.0
-            withAnimation{
+            withAnimation(.spring()){
                 arrowOpacity = 1.0
                 arrowBlur = 0.0
                 arrowOffset = 0
@@ -68,9 +79,9 @@ public struct SafeArrow: View {
     }
 }
 
-struct SafeArrow_Previews: PreviewProvider {
+struct SaveArrow_Previews: PreviewProvider {
     static var previews: some View {
-        SafeArrow()
+        SaveArrow()
     }
 }
 
