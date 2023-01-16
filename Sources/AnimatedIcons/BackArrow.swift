@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BackArrow: View {
+public struct BackArrow: View {
 
     @State var hovering : Bool = false
 
@@ -23,7 +23,7 @@ struct BackArrow: View {
     }
 
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             ZStack{
                 if !hovering {
