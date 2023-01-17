@@ -50,13 +50,14 @@ public struct SwatchPalette: View {
     public var body: some View {
         VStack {
             ZStack {
-                ExtractedView()
-                .scaleEffect(y: 0.8)
+                VerticalPalette()
+
+                    .scaleEffect(y: 0.8)
                 .rotationEffect(Angle(degrees: secondLevelRotation), anchor: .bottomLeading)
-                .offset(x: -1)
+                .offset(x: -2, y: -1)
                 .opacity(secondLevelOpacity)
 
-                ExtractedView()
+                VerticalPalette()
                 .scaleEffect(y: 0.9)
                 .rotationEffect(Angle(degrees: firstLevelRotation), anchor: .bottomLeading)
                 .offset(x: -0.2)
@@ -64,7 +65,10 @@ public struct SwatchPalette: View {
                 .opacity(firstLevelOpacity)
 
 
-                ExtractedView()
+                //ExtractedView()
+
+                VerticalPalette()
+
 
             }
             .onHover(perform: { hover in
@@ -119,6 +123,10 @@ struct SwatchPalette_Previews: PreviewProvider {
                 .frame(width: 30, height: 30)
             SwatchPalette()
                 .frame(width: 100, height: 100)
+
+            Text(Image(systemName: "swatchpalette"))
+                .fontWeight(.black)
+                .foregroundColor(.black)
         }
     }
 }
@@ -137,6 +145,55 @@ extension InsettableShape {
         self
             .strokeBorder(strokeStyle, lineWidth: lineWidth)
             .background(self.fill(fillStyle))
+    }
+}
+
+struct VerticalPaletteShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = rect.size.width
+        let height = rect.size.height
+        path.move(to: CGPoint(x: 0.3208*width, y: 0.99349*height))
+        path.addLine(to: CGPoint(x: 0.67155*width, y: 0.99349*height))
+        path.addCurve(to: CGPoint(x: 0.87582*width, y: 0.95687*height), control1: CGPoint(x: 0.7589*width, y: 0.99349*height), control2: CGPoint(x: 0.82699*width, y: 0.98128*height))
+        path.addCurve(to: CGPoint(x: 0.94906*width, y: 0.85677*height), control1: CGPoint(x: 0.92464*width, y: 0.93273*height), control2: CGPoint(x: 0.94906*width, y: 0.89936*height))
+        path.addLine(to: CGPoint(x: 0.94906*width, y: 0.13737*height))
+        path.addCurve(to: CGPoint(x: 0.87582*width, y: 0.03727*height), control1: CGPoint(x: 0.94906*width, y: 0.09478*height), control2: CGPoint(x: 0.92464*width, y: 0.06141*height))
+        path.addCurve(to: CGPoint(x: 0.67155*width, y: 0.00106*height), control1: CGPoint(x: 0.82699*width, y: 0.01313*height), control2: CGPoint(x: 0.7589*width, y: 0.00106*height))
+        path.addLine(to: CGPoint(x: 0.3208*width, y: 0.00106*height))
+        path.addCurve(to: CGPoint(x: 0.11491*width, y: 0.03727*height), control1: CGPoint(x: 0.23291*width, y: 0.00106*height), control2: CGPoint(x: 0.16428*width, y: 0.01313*height))
+        path.addCurve(to: CGPoint(x: 0.04085*width, y: 0.13737*height), control1: CGPoint(x: 0.06554*width, y: 0.06141*height), control2: CGPoint(x: 0.04085*width, y: 0.09478*height))
+        path.addLine(to: CGPoint(x: 0.04085*width, y: 0.85677*height))
+        path.addCurve(to: CGPoint(x: 0.11491*width, y: 0.95687*height), control1: CGPoint(x: 0.04085*width, y: 0.89936*height), control2: CGPoint(x: 0.06554*width, y: 0.93273*height))
+        path.addCurve(to: CGPoint(x: 0.3208*width, y: 0.99349*height), control1: CGPoint(x: 0.16428*width, y: 0.98128*height), control2: CGPoint(x: 0.23291*width, y: 0.99349*height))
+        path.closeSubpath()
+        path.move(to: CGPoint(x: 0.32975*width, y: 0.87467*height))
+        path.addCurve(to: CGPoint(x: 0.29313*width, y: 0.86735*height), control1: CGPoint(x: 0.3151*width, y: 0.87467*height), control2: CGPoint(x: 0.3029*width, y: 0.87223*height))
+        path.addCurve(to: CGPoint(x: 0.27848*width, y: 0.84904*height), control1: CGPoint(x: 0.28337*width, y: 0.86274*height), control2: CGPoint(x: 0.27848*width, y: 0.85663*height))
+        path.addLine(to: CGPoint(x: 0.27848*width, y: 0.1451*height))
+        path.addCurve(to: CGPoint(x: 0.29313*width, y: 0.12679*height), control1: CGPoint(x: 0.27848*width, y: 0.13751*height), control2: CGPoint(x: 0.28337*width, y: 0.1314*height))
+        path.addCurve(to: CGPoint(x: 0.32975*width, y: 0.11987*height), control1: CGPoint(x: 0.3029*width, y: 0.12218*height), control2: CGPoint(x: 0.3151*width, y: 0.11987*height))
+        path.addLine(to: CGPoint(x: 0.6626*width, y: 0.11987*height))
+        path.addCurve(to: CGPoint(x: 0.69759*width, y: 0.12679*height), control1: CGPoint(x: 0.6767*width, y: 0.11987*height), control2: CGPoint(x: 0.68837*width, y: 0.12218*height))
+        path.addCurve(to: CGPoint(x: 0.71224*width, y: 0.1451*height), control1: CGPoint(x: 0.70736*width, y: 0.1314*height), control2: CGPoint(x: 0.71224*width, y: 0.13751*height))
+        path.addLine(to: CGPoint(x: 0.71224*width, y: 0.84904*height))
+        path.addCurve(to: CGPoint(x: 0.69759*width, y: 0.86735*height), control1: CGPoint(x: 0.71224*width, y: 0.85663*height), control2: CGPoint(x: 0.70736*width, y: 0.86274*height))
+        path.addCurve(to: CGPoint(x: 0.6626*width, y: 0.87467*height), control1: CGPoint(x: 0.68837*width, y: 0.87223*height), control2: CGPoint(x: 0.6767*width, y: 0.87467*height))
+        path.addLine(to: CGPoint(x: 0.32975*width, y: 0.87467*height))
+        path.closeSubpath()
+        path.move(to: CGPoint(x: 0.11735*width, y: 0.41121*height))
+        path.addLine(to: CGPoint(x: 0.87337*width, y: 0.41121*height))
+        path.addLine(to: CGPoint(x: 0.87337*width, y: 0.2924*height))
+        path.addLine(to: CGPoint(x: 0.11735*width, y: 0.2924*height))
+        path.addLine(to: CGPoint(x: 0.11735*width, y: 0.41121*height))
+        path.closeSubpath()
+        path.move(to: CGPoint(x: 0.11735*width, y: 0.70215*height))
+        path.addLine(to: CGPoint(x: 0.87337*width, y: 0.70215*height))
+        path.addLine(to: CGPoint(x: 0.87337*width, y: 0.58333*height))
+        path.addLine(to: CGPoint(x: 0.11735*width, y: 0.58333*height))
+        path.addLine(to: CGPoint(x: 0.11735*width, y: 0.70215*height))
+        path.closeSubpath()
+        return path
     }
 }
 
@@ -239,5 +296,21 @@ struct ExtractedView: View {
             .zIndex(4)
 
         }
+    }
+}
+
+struct VerticalPalette: View {
+    var offset = -5.0
+
+    var body: some View {
+        VerticalPaletteShape()
+            .background(
+                Color.white
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .scaleEffect(x: 0.8, y: 0.9)
+            )
+            .foregroundColor(.black)
+            .frame(width: 8, height: 17)
+            .offset(x: offset)
     }
 }
