@@ -50,30 +50,13 @@ public struct SwatchPalette: View {
     public var body: some View {
         VStack {
             ZStack {
-                VStack(spacing: -1.5) {
-                    ForEach(1..<4) { i in
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .strokeBorder(strokeColor,lineWidth: lineWidth)
-                            .background(Circle().foregroundColor(backgroundColor))
-                            .frame(width: width, height: height)
-                            .offset(x: offset)
-                    }
-                }
+                ExtractedView()
                 .scaleEffect(y: 0.8)
                 .rotationEffect(Angle(degrees: secondLevelRotation), anchor: .bottomLeading)
                 .offset(x: -1)
                 .opacity(secondLevelOpacity)
 
-                VStack(spacing: -1.5) {
-                    ForEach(1..<4) { i in
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .strokeBorder(strokeColor,lineWidth: lineWidth)
-                            .background(Circle().foregroundColor(backgroundColor))
-                            .frame(width: width, height: height)
-                            .offset(x: offset)
-                    }
-
-                }
+                ExtractedView()
                 .scaleEffect(y: 0.9)
                 .rotationEffect(Angle(degrees: firstLevelRotation), anchor: .bottomLeading)
                 .offset(x: -0.2)
@@ -81,16 +64,7 @@ public struct SwatchPalette: View {
                 .opacity(firstLevelOpacity)
 
 
-                VStack(spacing: -1.5) {
-                    ForEach(1..<4) { i in
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .strokeBorder(strokeColor,lineWidth: lineWidth)
-                            .background(Circle().foregroundColor(backgroundColor))
-                            .frame(width: width, height: height)
-                            .offset(x: offset)
-                    }
-
-                }
+                ExtractedView()
 
             }
             .onHover(perform: { hover in
@@ -139,7 +113,13 @@ public struct SwatchPalette: View {
 
 struct SwatchPalette_Previews: PreviewProvider {
     static var previews: some View {
-        SwatchPalette()
+        HStack {
+            Rectangle()
+                .clipShape(RoundedCorners(tl: 0, tr:30, bl: 30, br: 0))
+                .frame(width: 30, height: 30)
+            SwatchPalette()
+                .frame(width: 100, height: 100)
+        }
     }
 }
 
@@ -157,5 +137,107 @@ extension InsettableShape {
         self
             .strokeBorder(strokeStyle, lineWidth: lineWidth)
             .background(self.fill(fillStyle))
+    }
+}
+
+
+struct RoundedCorners: Shape {
+    var tl: CGFloat = 0.0
+    var tr: CGFloat = 0.0
+    var bl: CGFloat = 0.0
+    var br: CGFloat = 0.0
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+
+        let w = rect.size.width
+        let h = rect.size.height
+
+        // Make sure we do not exceed the size of the rectangle
+        let tr = min(min(self.tr, h/2), w/2)
+        let tl = min(min(self.tl, h/2), w/2)
+        let bl = min(min(self.bl, h/2), w/2)
+        let br = min(min(self.br, h/2), w/2)
+
+        path.move(to: CGPoint(x: w / 2.0, y: 0))
+        path.addLine(to: CGPoint(x: w - tr, y: 0))
+        path.addArc(center: CGPoint(x: w - tr, y: tr), radius: tr,
+                    startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 0), clockwise: false)
+
+        path.addLine(to: CGPoint(x: w, y: h - br))
+        path.addArc(center: CGPoint(x: w - br, y: h - br), radius: br,
+                    startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 90), clockwise: false)
+
+        path.addLine(to: CGPoint(x: bl, y: h))
+        path.addArc(center: CGPoint(x: bl, y: h - bl), radius: bl,
+                    startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 180), clockwise: false)
+
+        path.addLine(to: CGPoint(x: 0, y: tl))
+        path.addArc(center: CGPoint(x: tl, y: tl), radius: tl,
+                    startAngle: Angle(degrees: 180), endAngle: Angle(degrees: 270), clockwise: false)
+        path.closeSubpath()
+
+        return path
+    }
+}
+
+struct ExtractedView: View {
+
+    var width = 6.6
+    var height = 6.6
+    var offset = -5.0
+    var lineWidth = 1.8
+    var cornerRadius = 1.4
+    var strokeColor : Color = .black
+    var backgroundColor : Color = .white
+
+    var body: some View {
+        VStack(spacing: -1.5) {
+            ZStack{
+                Rectangle()
+                    .strokeBorder(strokeColor,lineWidth: lineWidth)
+                    .clipShape(RoundedCorners(tl: 2, tr:2, bl: 0, br: 0))
+                    .frame(width: width, height: height)
+                    .offset(x: offset)
+                
+
+                Rectangle()
+                    .clipShape(RoundedCorners(tl: 1, tr:1, bl: 0, br: 0))
+                    .foregroundColor(.white)
+                    .frame(width: 3.8, height: 3.4)
+                    .offset(x: offset)
+            }
+            .zIndex(4)
+
+            ZStack{
+                Rectangle()
+                    .strokeBorder(strokeColor,lineWidth: lineWidth)
+                    .frame(width: width, height: height)
+                    .offset(x: offset)
+
+                Rectangle()
+                    .clipShape(RoundedCorners(tl: 0, tr:0, bl: 0, br: 0))
+                    .foregroundColor(.white)
+                    .frame(width: 3.8, height: 3.4)
+                    .offset(x: offset)
+            }
+            .zIndex(3)
+
+            ZStack{
+                Rectangle()
+                    .strokeBorder(strokeColor,lineWidth: lineWidth)
+                    .clipShape(RoundedCorners(tl: 0, tr:0, bl: 2, br: 2))
+                    .frame(width: width, height: height)
+                    .offset(x: offset)
+
+                Rectangle()
+                    .clipShape(RoundedCorners(tl: 0, tr:0, bl: 1, br: 1))
+                    .foregroundColor(.white)
+                    .frame(width: 3.8, height: 3.4)
+                    .offset(x: offset)
+            }
+            .zIndex(4)
+
+        }
     }
 }
